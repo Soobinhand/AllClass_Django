@@ -1,0 +1,180 @@
+<head>
+    <style>
+        .sidebar {
+            width: 300px;
+            background-color: whitesmoke;
+            height: 100vh;
+            top: 0;
+            left: -300px;
+            position: absolute;
+            transition: all 0.5s;
+        }
+
+        .sidebar aa {
+            padding: 20% 20px;
+            font-size: 35px;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            margin-left: 15px;
+        }
+
+        .sidebar a {
+
+
+        }
+
+
+        /*버튼 구간입니다.*/
+        input[id="chkbox"] {
+            display: none;
+        }
+
+        .span-area {
+            position: absolute;
+            background-color: transparent;
+            width: 50px;
+            height: 50px;
+            top: 100px;
+            left: 0;
+            transition: all 0.5s;
+            margin-left: 12px;
+        }
+
+        .span-area span {
+            position: absolute;
+            height: 5px;
+            width: 50px;
+            background-color: gray;
+            left: 0;
+            transition: all 0.5s;
+        }
+
+        .span-area span:nth-child(1) {
+            top: 0;
+        }
+
+        .span-area span:nth-child(2) {
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .span-area span:nth-child(3) {
+            bottom: 0;
+        }
+
+
+        input[id="chkbox"]:checked ~ .span-area span:nth-child(1) {
+            top: 50%;
+            transform: translateY(-50%) rotate(45deg);
+        }
+
+        input[id="chkbox"]:checked ~ .span-area span:nth-child(2) {
+            opacity: 0;
+        }
+
+
+        input[id="chkbox"]:checked ~ .span-area span:nth-child(3) {
+            bottom: 50%;
+            transform: translateY(50%) rotate(-45deg);
+        }
+
+
+        input[id="chkbox"]:checked ~ .span-area {
+            left: 300px;
+        }
+
+
+        input[id="chkbox"]:checked ~ .sidebar {
+
+            left: 0px;
+        }
+
+    </style>
+</head>
+
+<body>
+<input type="checkbox" id="chkbox">
+<label for="chkbox" class="span-area">
+    <span>    </span>
+    <span>    </span>
+    <span>    </span>
+</label>
+<div class="sidebar">
+    <br><br><br><br>
+
+    <ul>
+        <li>
+            <aa href="#"> AllClass</aa>
+        </li>
+    </ul>
+    <br>
+    <ul>
+        <a href="{% url 'board:index' 1 %}">자유게시판</a>
+    </ul>
+
+    <ul><a href="{% url 'board:index' 2 %}">상담게시판</a>
+        <ul>
+
+        </ul>
+    </ul>
+
+    <ul>
+        <a href="{% url 'board:index' 3 %}">수능게시판</a>
+        <ul>
+            <li><a href="{% url 'board:index' 4 %}">{{ board.4.name }}</a></li>
+            <li><a href="{% url 'board:index' 5 %}">{{ board.5.name }}</a></li>
+            <li><a href="{% url 'board:index' 6 %}">{{ board.6.name }}</a></li>
+            <li><a href="{% url 'board:index' 7 %}">{{ board.7.name }}</a></li>
+            <li><a href="{% url 'board:index' 8 %}">{{ board.8.name }}</a></li>
+            <li><a href="{% url 'board:index' 9 %}">{{ board.9.name }}</a></li>
+            <li><a href="{% url 'board:index' 10 %}">{{ board.10.name }}</a></li>
+
+        </ul>
+    </ul>
+</div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+
+
+    <div class="container-fluid">
+
+
+        <a class="navbar-brand" href="{% url 'board:index' 1 %}">AllClass</a>
+        <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    {% if user.is_authenticated %}
+                        <a class="nav-link" href="{% url 'common:logout' %}">{{ user.username }} (로그아웃)</a>
+                    {% else %}
+                        <a class="nav-link" href="{% url 'common:login' %}">로그인</a>
+                    {% endif %}
+                </li>
+                <li>
+                    {% if not user.is_authenticated %}
+                        <a class="nav-link" href="{% url 'common:signup' %}">회원가입</a>
+                    {% endif %}
+                </li>
+                <li><a class="nav-link" href="{% url 'board:index' 0 %}">{{ board.0.name }}</a></li>
+                <li><a class="nav-link" href="{% url 'board:index' 1 %}">{{ board.1.name }}</a></li>
+                <li><a class="nav-link" href="{% url 'board:index' 2 %}">{{ board.2.name }}</a></li>
+            </ul>
+
+
+        </div>
+    </div>
+
+
+    </div>
+
+    </div>
+
+</nav>
+
+
+</body>

@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block content %}
+    <style>
+        #input-file-button {
+            padding: 6px 25px;
+            background-color: #FF6600;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+        }
+
+        #aae {
+            display: none;
+        }
+    </style>
+
+
+    <div class="container">
+        <h5 class="my-3 border-bottom pb-2">게시물 등록</h5>
+        <form method="post" enctype="multipart/form-data" action="">
+            {% csrf_token %}
+            <!-- 오류 예외 처리 -->
+            {% if form.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {% for field in form %}
+                        {% if field.errors %}
+                            <div>
+                                <strong>{{ field.label }}</strong>
+                                {{ field.errors }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+
+                </div>
+            {% endif %}
+            <!-- 오류 예외 처리 -->
+
+            <div class="mb-3">
+                <label for="subject" class="form-label">제목</label>
+                <input type="text" class="form-control" name="subject" id="subject"
+                       value="{{ form.subject.value|default_if_none:'' }}">
+            </div>
+            <br>
+            {#            <input type="file" name="photo" multiple id="photo1">#}
+            <label id="input-file-button" for="input-file">
+                사진 첨부
+            </label>
+            <input type="file" name="photo" id="input-file" style="display:none" >
+            <br>
+            <br>
+            <div class="mb-3">
+                <label for="content" class="form-label">내용</label>
+                <textarea class="form-control" name="content"
+                          id="content" rows="10">{{ form.content.value|default_if_none:'' }}</textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">저장하기</button>
+        </form>
+    </div>
+{% endblock %}
